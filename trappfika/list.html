@@ -1,0 +1,27 @@
+<table class="table" ng-controller="MyCtrl">
+    <thead>
+    <tr>
+        <th>Namn</th>
+        <th>Antal upp</th>
+        <th>Antal ner</th>
+        <th>Poäng</th>
+        <th><a href="#/new"><span class="glyphicon glyphicon-plus"></span></a></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="contestant in contestants | orderBy:'-points'">
+        <td>{{contestant.name}}</td>
+        <td>
+            <a href ng-click="addUp(contestant)"><span class="glyphicon glyphicon-plus"></span></a>
+            <span>{{contestant.up}}</span>
+            <a href ng-click="subtractUp(contestant)"><span class="glyphicon glyphicon-minus"></span></a>
+        </td>
+        <td>
+            <a href ng-click="addDown(contestant)"><span class="glyphicon glyphicon-plus"></span></a>
+            <span>{{contestant.down}}</span>
+            <a href ng-click="subtractDown(contestant)"><span class="glyphicon glyphicon-minus"></span></a>
+        </td>
+        <td>{{contestant.points}}</td>
+    </tr>
+    </tbody>
+</table>

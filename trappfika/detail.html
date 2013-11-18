@@ -1,0 +1,32 @@
+<form name="myForm">
+
+    <div class="form-group">
+        <label class="control-label" for="name">Namn</label>
+        <input type="text" class="form-control" id="name" ng-model="contestant.name" placeholder="Namn" style="width:250px;">
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">
+            <label class="control-label">Antal upp</label>
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">Antal ner</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="contestant.up">
+        </div>
+        <div class="col-md-3">
+            <input type="text" class="form-control" ng-model="contestant.down">
+        </div>
+    </div>
+
+
+    <br>
+    <a href="#/" class="btn btn-default">Avbryt</a>
+    <button ng-click="save()" ng-disabled="isClean() || myForm.$invalid"
+            class="btn btn-primary">Spara</button>
+    </div>
+</form>
