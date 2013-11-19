@@ -1,6 +1,6 @@
 
 var trappfika = angular.module('trappfika', ['ngRoute', 'firebase']);
-trappfika.value('firebaseUrl', 'https://trappfika.firebaseio.com/test');
+trappfika.value('firebaseUrl', 'https://trappfika.firebaseio.com/contestants');
 trappfika.config(function($routeProvider) {
     $routeProvider.
         when('/', {templateUrl:'list.html'}).
