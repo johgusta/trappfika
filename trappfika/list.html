@@ -1,4 +1,4 @@
-<table class="table table-hover" ng-controller="MyCtrl">
+<table class="table table-hover" ng-controller="ListCtrl">
     <thead>
     <tr>
         <th>Namn</th>
@@ -9,7 +9,10 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-repeat="contestant in contestants | orderBy:'-points'">
+    <tr ng-repeat="contestant in contestants | orderBy:'-points'"
+        ng-class="{success: contestant.updated }"
+        ng-mouseleave="leave(contestant)"
+        ng-mouseenter="enter(contestant)">
         <td>{{contestant.name}}</td>
         <td>
             <a href ng-click="addUp(contestant)"><span class="glyphicon glyphicon-plus"></span></a>
