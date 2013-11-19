@@ -4,6 +4,7 @@ var myapp = angular.module('trappfika', ['ngRoute', 'firebase']).
     $routeProvider.
         when('/', {templateUrl:'list.html'}).
         when('/new', {controller:CreateCtrl, templateUrl:'detail.html'}).
+        when('/rules', {controller:RulesCtrl, templateUrl:'rules.html'}).
         otherwise({redirectTo:'/'});
 });
 
@@ -52,4 +53,10 @@ function CreateCtrl($scope, $location, angularFire) {
     function points(contestant) {
         return parseInt(contestant.up) * 2 + parseInt(contestant.down);
     }
+}
+
+function RulesCtrl($scope, $location, angularFire) {
+    var ref = new Firebase('https://trappfika.firebaseio.com/rules');
+    angularFire(ref, $scope, 'rules', []);
+
 }
