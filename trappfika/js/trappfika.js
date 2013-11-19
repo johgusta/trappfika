@@ -5,6 +5,7 @@ var myapp = angular.module('trappfika', ['ngRoute', 'firebase']).
         when('/', {templateUrl:'list.html'}).
         when('/new', {controller:CreateCtrl, templateUrl:'detail.html'}).
         when('/rules', {controller:RulesCtrl, templateUrl:'rules.html'}).
+        when('/superSecretAddRulesUrl', {controller:RulesCtrl, templateUrl:'addRule.html'}).
         otherwise({redirectTo:'/'});
 });
 
@@ -59,4 +60,8 @@ function RulesCtrl($scope, $location, angularFire) {
     var ref = new Firebase('https://trappfika.firebaseio.com/rules');
     angularFire(ref, $scope, 'rules', []);
 
+    $scope.addRule = function() {
+        $scope.rules.push($scope.rule);        
+    }
+    
 }
