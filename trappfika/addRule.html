@@ -1,0 +1,26 @@
+<h2>Regler</h2>
+<h3>Lägg till</h3>
+
+<form name="ruleForm">
+
+    <div class="form-group">
+        <label class="control-label" for="text">Regeltext</label>
+        <input type="text" class="form-control" id="text" ng-model="rule.ruleText" placeholder="Regeltext">
+    </div>
+
+    <div class="form-group">
+        <label class="control-label" for="sortKey">Regelnummer</label>
+        <input type="text" class="form-control" id="sortKey" ng-model="rule.ruleNr" placeholder="Nr" style="width:50px;">
+    </div>
+
+    <br>
+    <a href="#/" class="btn btn-default">Avbryt</a>
+    <button ng-click="addRule()" ng-disabled="isClean() || ruleForm.$invalid"
+            class="btn btn-primary">Spara</button>
+    </div>
+</form>
+
+<h3>Sparade regler</h3>
+<ul ng-repeat="rule in rules | orderBy:'ruleNr'">
+	<li>{{rule.ruleNr}}: {{rule.ruleText}}</li>
+</ul>
