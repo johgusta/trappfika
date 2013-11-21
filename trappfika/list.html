@@ -10,7 +10,7 @@
     </thead>
     <tbody>
     <tr ng-repeat="contestant in contestants | orderBy:'-points'"
-        ng-class="{success: contestant.updated }"
+        ng-class="{success: contestant.updated, danger: $last}"
         ng-mouseleave="leave(contestant)"
         ng-mouseenter="enter(contestant)">
         <td>{{contestant.name}}</td>
