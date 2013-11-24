@@ -12,14 +12,19 @@
             when('/', {templateUrl : 'list.html'}).
             when('/new', {controller : 'CreateCtrl', templateUrl : 'detail.html'}).
             when('/rules', {controller : 'RulesCtrl', templateUrl : 'rules.html'}).
+            when('/weeks', {controller : 'WeeksCtrl', templateUrl : 'weeks.html'}).
             when('/superSecretAddRulesUrl', {controller : 'RulesCtrl', templateUrl : 'addRule.html'}).
             otherwise({redirectTo : '/'});
     });
 
-    trappfika.controller('ListCtrl', ['$scope', 'angularFire', 'firebaseBaseUrl', '$timeout',
-        function ($scope, angularFire, firebaseBaseUrl, $timeout) {
+    trappfika.controller('ListCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl', '$timeout',
+        function ($scope, $location, angularFire, firebaseBaseUrl, $timeout) {
             var ref = new Firebase(firebaseBaseUrl + 'contestants');
             angularFire(ref, $scope, 'contestants', []);
+            var weeksRef = new Firebase(firebaseBaseUrl + 'weeks');
+            angularFire(weeksRef, $scope, 'weeks', []);
+
+
             $scope.origCopys = {};
 
             function equalPoints(orig, current) {
@@ -64,6 +69,29 @@
             $scope.subtractDown = function (contestant) {
                 contestant.down = parseInt(contestant.down, 10) - 1;
             };
+
+            $scope.transferToCompletedWeeks = function () {
+                var week = new Object();
+                week.weekNumber = getWeekNumber();
+                week.contestants = angular.copy($scope.contestants);
+                $scope.weeks.push(week);
+                $scope.contestants = {};
+                $location.path('/weeks');
+            };
+
+
+            function getWeekNumber() {
+                var d = new Date();
+                // Set to nearest Thursday: current date + 4 - current day number
+                // Make Sunday's day number 7
+                d.setDate(d.getDate() + 4 - (d.getDay()||7));
+                // Get first day of year
+                var yearStart = new Date(d.getFullYear(),0,1);
+                // Calculate full weeks to nearest Thursday
+                var weekNo = Math.ceil(( ( (d - yearStart) / 86400000) + 1)/7)
+                // Return array of year and week number
+                return weekNo;
+            };
         }]);
 
     trappfika.controller('CreateCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
@@ -90,6 +118,12 @@
             $scope.addRule = function () {
                 $scope.rules.push($scope.rule);
             };
+        }]);
+
+    trappfika.controller('WeeksCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
+        function ($scope, $location, angularFire, firebaseBaseUrl) {
+            var ref = new Firebase(firebaseBaseUrl + 'weeks');
+            angularFire(ref, $scope, 'weeks', []);
         }]);
 
 // End of use strict
