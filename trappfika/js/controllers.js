@@ -3,9 +3,9 @@
 
     var trappfika = angular.module('trappfika.controllers', []);
 
-    trappfika.controller('ListCtrl', ['$scope', 'angularFire', 'firebaseBaseUrl', '$timeout',
-        function ($scope, angularFire, firebaseBaseUrl, $timeout) {
-            var ref = new Firebase(firebaseBaseUrl + 'contestants');
+    trappfika.controller('ListCtrl', ['$scope', 'angularFire', 'firebaseBaseUrl', '$timeout', 'date',
+        function ($scope, angularFire, firebaseBaseUrl, $timeout, date) {
+            var ref = new Firebase(firebaseBaseUrl + 'week' + date.getWeek());
             angularFire(ref, $scope, 'contestants', []);
             $scope.origCopys = {};
 
@@ -53,9 +53,9 @@
             };
         }]);
 
-    trappfika.controller('CreateCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
-        function ($scope, $location, angularFire, firebaseBaseUrl) {
-            var ref = new Firebase(firebaseBaseUrl + 'contestants');
+    trappfika.controller('CreateCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl', 'date',
+        function ($scope, $location, angularFire, firebaseBaseUrl, date) {
+            var ref = new Firebase(firebaseBaseUrl + 'week' + date.getWeek());
             angularFire(ref, $scope, 'contestants', []);
 
             function points(contestant) {
@@ -77,6 +77,11 @@
             $scope.addRule = function () {
                 $scope.rules.push($scope.rule);
             };
+        }]);
+
+    trappfika.controller('HeaderCtrl', ['$scope','date',
+        function ($scope, date) {
+            $scope.week = date.getWeek();
         }]);
 
 // End of use strict
