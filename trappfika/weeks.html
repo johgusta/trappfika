@@ -1,0 +1,27 @@
+<h2>Tidigare veckor</h2>
+	<div ng-repeat="week in weeks | orderBy:'-weekNumber'">
+		<h4>Vecka {{week.weekNumber}} - Antal tävlande: {{week.contestants.length}}</h4>
+		<table class="table table-hover">
+		    <thead>
+		    <tr>
+		        <th>Namn</th>
+		        <th>Antal upp</th>
+		        <th>Antal ner</th>
+		        <th>Poäng</th>
+		    </tr>
+		    </thead>
+		    <tbody>
+		    <tr ng-repeat="contestant in week.contestants | orderBy:'-points'"
+		        ng-class="{success: $first, danger: $last}">
+		        <td>{{contestant.name}}</td>
+		        <td>
+		            <span>{{contestant.up}}</span>
+		        </td>
+		        <td>
+		            <span>{{contestant.down}}</span>
+		        </td>
+		        <td>{{contestant.points}}</td>
+		    </tr>
+		    </tbody>
+		</table>
+	</div>
