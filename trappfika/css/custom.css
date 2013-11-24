@@ -23,3 +23,9 @@
     /*background-color: #eb8080;*/
     background-color: #F73535;
 }
+
+@media (min-width: 768px) {
+  .container {
+    max-width: 730px;
+  }
+}

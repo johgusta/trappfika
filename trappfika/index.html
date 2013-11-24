@@ -12,12 +12,18 @@
 
 <body>
 
-<div style="width:400px;margin:20px;">
+<div class="container" xstyle="width:400px;margin:20px;">
     <h2 data-toggle="modal" data-target="#trap">Trappfika</h2>
-    <ul>
-    	<li><a href="#/">Tävlande</a></li>
-    	<li><a href="#/rules">Visa regler</a></li>
-    </ul>
+    <nav class="navbar navbar-default" role="navigation">
+        <ul class="nav navbar-nav">
+            <li><a href="#/">Tävlande</a></li>
+            <li><a href="#/new">Lägg till tävlande</a></li>
+            <li><a href="#/rules">Visa regler</a></li>
+        </ul>
+    </nav>
+
+
+
     <div ng-view></div>
 
     <!-- Modal -->
