@@ -29,3 +29,8 @@
     max-width: 730px;
   }
 }
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+}

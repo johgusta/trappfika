@@ -9,19 +9,23 @@
     </thead>
     <tbody>
     <tr ng-repeat="contestant in contestants | orderBy:'-points'"
-        ng-class="{success: contestant.updated, danger: $last}"
+        ng-class="{success: contestant.updated, danger: $last && contestants.length > 1}"
         ng-mouseleave="leave(contestant)"
         ng-mouseenter="enter(contestant)">
         <td>{{contestant.name}}</td>
         <td>
-            <a href ng-click="addUp(contestant)"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href ng-click="addUp(contestant)"
+                    ng-show="contestant.userId == user.id"><span class="glyphicon glyphicon-plus"></span></a>
             <span>{{contestant.up}}</span>
-            <a href ng-click="subtractUp(contestant)"><span class="glyphicon glyphicon-minus"></span></a>
+            <a href ng-click="subtractUp(contestant)"
+                    ng-show="contestant.userId == user.id"><span class="glyphicon glyphicon-minus"></span></a>
         </td>
         <td>
-            <a href ng-click="addDown(contestant)"><span class="glyphicon glyphicon-plus"></span></a>
+            <a href ng-click="addDown(contestant)"
+                    ng-show="contestant.userId == user.id"><span class="glyphicon glyphicon-plus"></span></a>
             <span>{{contestant.down}}</span>
-            <a href ng-click="subtractDown(contestant)"><span class="glyphicon glyphicon-minus"></span></a>
+            <a href ng-click="subtractDown(contestant)"
+                    ng-show="contestant.userId == user.id"><span class="glyphicon glyphicon-minus"></span></a>
         </td>
         <td>{{contestant.points}}</td>
     </tr>

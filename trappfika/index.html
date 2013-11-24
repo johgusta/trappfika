@@ -13,16 +13,31 @@
 <body>
 
 <div class="container" xstyle="width:400px;margin:20px;" ng-controller="HeaderCtrl">
-    <h2 data-toggle="modal" data-target="#trap">Trappfika v {{ week }}</h2>
-    <nav class="navbar navbar-default" role="navigation">
-        <ul class="nav navbar-nav">
-            <li><a href="#/">Tävlande</a></li>
-            <li><a href="#/new">Lägg till tävlande</a></li>
-            <li><a href="#/rules">Visa regler</a></li>
-        </ul>
-    </nav>
-
-
+    <div>
+        <div class="row">
+            <div class="pull-left">
+                <h2 data-toggle="modal" data-target="#trap">Trappfika v {{ week }} </h2>
+            </div>
+            <div class="pull-right">
+                <h3>
+                    <span ng-show="user">
+                        {{user.name}} | <a href ng-click="logout()">Logout</a>
+                    </span>
+                    <span ng-hide="user"><a href ng-click="login()">Login</a></span>
+                </h3>
+            </div>
+        </div>
+        <nav class="navbar navbar-default" role="navigation">
+            <ul class="nav navbar-nav">
+                <li><a href="#/">Tävlande</a></li>
+                <li><a href="#/rules">Visa regler</a></li>
+                <!--<li class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>-->
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>
+            </ul>
+        </nav>
+    </div>
 
     <div ng-view></div>
 
@@ -42,6 +57,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase.js"></script>
+<script src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
 <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/services.js"></script>

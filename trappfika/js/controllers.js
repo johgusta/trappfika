@@ -58,12 +58,13 @@
             var ref = new Firebase(firebaseBaseUrl + 'week' + date.getWeek());
             angularFire(ref, $scope, 'contestants', []);
 
-            function points(contestant) {
-                return parseInt(contestant.up, 10) * 2 + parseInt(contestant.down, 10);
-            }
+            $scope.contestant = {name: $scope.user.name,
+                                userId: $scope.user.id,
+                                up:0,
+                                down:0,
+                                points:0};
 
             $scope.save = function () {
-                $scope.contestant.points = points($scope.contestant);
                 $scope.contestants.push($scope.contestant);
                 $location.path('/');
             };
@@ -79,9 +80,35 @@
             };
         }]);
 
-    trappfika.controller('HeaderCtrl', ['$scope','date',
-        function ($scope, date) {
+    trappfika.controller('HeaderCtrl', ['$scope','date', 'firebaseBaseUrl', '$location',
+        function ($scope, date, firebaseBaseUrl, $location) {
             $scope.week = date.getWeek();
+
+            var ref = new Firebase(firebaseBaseUrl);
+            var auth = new FirebaseSimpleLogin(ref, function(error, user) {
+                if (error) {
+                    // an error occurred while attempting login
+                    console.log(error);
+                } else if (user) {
+                    // user authenticated with Firebase
+                    $scope.user = user;
+                    $scope.$apply();
+                } else {
+                    // user is logged out
+                    delete $scope.user;
+                    $scope.$apply();
+                    $location.path('/');
+
+                }
+            });
+
+            $scope.login = function() {
+                auth.login('github');
+            };
+
+            $scope.logout = function () {
+                auth.logout();
+            };
         }]);
 
 // End of use strict
