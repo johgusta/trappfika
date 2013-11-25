@@ -12,8 +12,8 @@
 
 <body>
 
-<div class="container" xstyle="width:400px;margin:20px;">
-    <h2 data-toggle="modal" data-target="#trap">Trappfika</h2>
+<div class="container" xstyle="width:400px;margin:20px;" ng-controller="HeaderCtrl">
+    <h2 data-toggle="modal" data-target="#trap">Trappfika v {{ week }}</h2>
     <nav class="navbar navbar-default" role="navigation">
         <ul class="nav navbar-nav">
             <li><a href="#/">Tävlande</a></li>
@@ -44,6 +44,9 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/services.js"></script>
+<script type="text/javascript" src="js/controllers.js"></script>
 <script type="text/javascript" src="js/trappfika.js"></script>
 </body>
 </html>
