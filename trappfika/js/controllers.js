@@ -77,7 +77,9 @@
                                 points:0};
 
             $scope.save = function () {
-                $scope.contestants.push($scope.contestant);
+                if($scope.user) {
+                    $scope.contestants.push($scope.contestant);
+                }
                 $location.path('/');
             };
         }]);
