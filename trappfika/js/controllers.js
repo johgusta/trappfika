@@ -123,8 +123,8 @@
                 }
             });
 
-            $scope.login = function() {
-                auth.login('github');
+            $scope.login = function (authenticator) {
+                auth.login(authenticator);
             };
 
             $scope.logout = function () {
