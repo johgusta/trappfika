@@ -12,7 +12,7 @@
 
 <body>
 
-<div class="container" xstyle="width:400px;margin:20px;" ng-controller="HeaderCtrl">
+<div class="container" ng-controller="HeaderCtrl">
     <div>
         <div class="row" ng-cloak>
             <div class="pull-left">
@@ -29,12 +29,12 @@
         </div>
         <nav class="navbar navbar-default" role="navigation">
             <ul class="nav navbar-nav">
-                <li><a href="#/">Tävlande</a></li>
-                <li><a href="#/rules">Visa regler</a></li>
-                <li><a href="#/weeks">Tidigare veckor</a></li>
+                <li id="mi_contestants"><a href="#/">Tävlande</a></li>
+                <li id="mi_rules"><a href="#/rules">Visa regler</a></li>
+                <li id="mi_weeks"><a href="#/weeks">Tidigare veckor</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>
+                <li id="mi_add_contestant" class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>
             </ul>
         </nav>
     </div>
