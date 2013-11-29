@@ -1,3 +1,4 @@
+/*global $, angular */
 (function () {
     "use strict";
 
@@ -7,7 +8,7 @@
                 getWeek: function() {
                     return $.datepicker.iso8601Week(new Date());
                 }
-            }
+            };
         });
 
 // End of use strict

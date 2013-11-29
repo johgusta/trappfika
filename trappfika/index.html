@@ -12,29 +12,35 @@
 
 <body>
 
-<div class="container" xstyle="width:400px;margin:20px;" ng-controller="HeaderCtrl">
+<div class="container" ng-controller="HeaderCtrl">
     <div>
         <div class="row" ng-cloak>
             <div class="pull-left">
                 <h2 data-toggle="modal" data-target="#trap">Trappfika v {{ week }} </h2>
             </div>
             <div class="pull-right">
-                <h3>
+                <h4>
                     <span ng-show="user">
-                        {{user.name}} | <a href ng-click="logout()">Logout</a>
+                        {{ user.name ? user.name : user.email }} | <a href ng-click="logout()">Logga ut</a>
                     </span>
-                    <span ng-hide="user"><a href ng-click="login()">Login</a></span>
-                </h3>
+                </h4>
             </div>
         </div>
         <nav class="navbar navbar-default" role="navigation">
             <ul class="nav navbar-nav">
-                <li><a href="#/">Tävlande</a></li>
-                <li><a href="#/rules">Visa regler</a></li>
-                <li><a href="#/weeks">Tidigare veckor</a></li>
+                <li id="mi_contestants"><a href="#/">Tävlande</a></li>
+                <li id="mi_rules"><a href="#/rules">Visa regler</a></li>
+                <li id="mi_weeks"><a href="#/weeks">Tidigare veckor</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>
+                <li id="mi_add_contestant" class="pull-right" ng-show="user"><a href="#/new">Lägg till tävlande</a></li>
+                <li class="dropdown" ng-hide="user">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Logga in <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" ng-click="login('github')">Github</a></li>
+                        <li><a href="#" ng-click="login('persona')">Persona</a></li>
+                    </ul>
+                </li>
             </ul>
         </nav>
     </div>
@@ -58,6 +64,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.0/angular-route.js"></script>
 <script src="https://cdn.firebase.com/v0/firebase.js"></script>
 <script src='https://cdn.firebase.com/v0/firebase-simple-login.js'></script>
+<script src='https://login.persona.org/include.js'></script>
 <script src="http://firebase.github.io/angularFire/angularFire.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 <script type="text/javascript" src="js/services.js"></script>

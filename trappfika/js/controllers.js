@@ -1,3 +1,5 @@
+/*global angular, Firebase, FirebaseSimpleLogin, console */
+
 (function () {
     "use strict";
 
@@ -56,7 +58,7 @@
             };
 
             $scope.transferToCompletedWeeks = function () {
-                var week = new Object();
+                var week = {};
                 week.weekNumber = date.getWeek();
                 week.contestants = angular.copy($scope.contestants);
                 $scope.weeks.push(week);
@@ -121,8 +123,8 @@
                 }
             });
 
-            $scope.login = function() {
-                auth.login('github');
+            $scope.login = function (authenticator) {
+                auth.login(authenticator);
             };
 
             $scope.logout = function () {
