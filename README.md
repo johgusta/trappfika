@@ -22,7 +22,7 @@ Edit `trappfika.js` and set `firebaseBaseUrl` to something like `https://your-db
 
 Install Protractor with
 
-`npm -g protractor`
+`npm install -g protractor`
 
 On windows, it will install somewhere like `**/Users/**/AppData/**/npm/node_modules/protractor`
 
