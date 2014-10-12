@@ -5,12 +5,16 @@
 
     var trappfika = angular.module('trappfika.controllers', []);
 
-    trappfika.controller('ListCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl', '$timeout', 'date',
-        function ($scope, $location, angularFire, firebaseBaseUrl, $timeout, date) {
+    trappfika.controller('ListCtrl', ['$scope', '$location', '$firebase', 'firebaseBaseUrl', '$timeout', 'date',
+        function ($scope, $location, $firebase, firebaseBaseUrl, $timeout, date) {
+
             var ref = new Firebase(firebaseBaseUrl + 'contestants');
-            angularFire(ref, $scope, 'contestants', []);
-            var weeksRef = new Firebase(firebaseBaseUrl + 'weeks');
-            angularFire(weeksRef, $scope, 'weeks', []);
+            var contestantsSync = $firebase(ref);
+            $scope.contestants = contestantsSync.$asArray();
+
+            var ref = new Firebase(firebaseBaseUrl + 'weeks');
+            var weeksSync = $firebase(ref);
+            $scope.weeks = weeksSync.$asArray();
 
             $scope.origCopys = {};
 
@@ -29,6 +33,7 @@
                 if (!equalPoints(orig, updated)) {
                     updated.points = parseInt(updated.up, 10) * 2 + parseInt(updated.down, 10);
                     flashColor(updated);
+                    $scope.contestants.$save(updated);
                 }
             }
 
@@ -61,45 +66,48 @@
                 var week = {};
                 week.weekNumber = date.getWeek();
                 week.contestants = angular.copy($scope.contestants);
-                $scope.weeks.push(week);
-                $scope.contestants = {};
+                $scope.weeks.$add(week);
+                angular.forEach($scope.contestants, function (contestant) {
+                    $scope.contestants.$remove(contestant);
+                });
                 $location.path('/weeks');
             };
         }]);
 
-    trappfika.controller('CreateCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
-        function ($scope, $location, angularFire, firebaseBaseUrl) {
+    trappfika.controller('CreateCtrl', ['$scope', '$location', '$firebase', 'firebaseBaseUrl',
+        function ($scope, $location, $firebase, firebaseBaseUrl) {
             var ref = new Firebase(firebaseBaseUrl + 'contestants');
-            angularFire(ref, $scope, 'contestants', []);
-
-            $scope.contestant = {name: $scope.user.name,
-                                userId: $scope.user.id,
+            $scope.contestants = $firebase(ref).$asArray();
+            $scope.contestant = {name: $scope.user.displayName,
+                                userId: $scope.user.uid,
                                 up:0,
                                 down:0,
                                 points:0};
 
             $scope.save = function () {
                 if($scope.user) {
-                    $scope.contestants.push($scope.contestant);
+                    $scope.contestants.$add($scope.contestant);
                 }
                 $location.path('/');
             };
         }]);
 
-    trappfika.controller('RulesCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
-        function ($scope, $location, angularFire, firebaseBaseUrl) {
+    trappfika.controller('RulesCtrl', ['$scope', '$location', '$firebase', 'firebaseBaseUrl',
+        function ($scope, $location, $firebase, firebaseBaseUrl) {
+
             var ref = new Firebase(firebaseBaseUrl + 'rules');
-            angularFire(ref, $scope, 'rules', []);
+            $scope.rules = $firebase(ref).$asArray();
 
             $scope.addRule = function () {
-                $scope.rules.push($scope.rule);
+                $scope.rules.$add($scope.rule);
             };
         }]);
 
-    trappfika.controller('WeeksCtrl', ['$scope', '$location', 'angularFire', 'firebaseBaseUrl',
-        function ($scope, $location, angularFire, firebaseBaseUrl) {
+    trappfika.controller('WeeksCtrl', ['$scope', '$location', '$firebase', 'firebaseBaseUrl',
+        function ($scope, $location, $firebase, firebaseBaseUrl) {
+
             var ref = new Firebase(firebaseBaseUrl + 'weeks');
-            angularFire(ref, $scope, 'weeks', []);
+            $scope.weeks = $firebase(ref).$asArray();
         }]);
 
     trappfika.controller('HeaderCtrl', ['$scope','date', 'firebaseBaseUrl', '$location',
